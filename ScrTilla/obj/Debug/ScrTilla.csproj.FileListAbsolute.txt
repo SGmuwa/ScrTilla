@@ -4,3 +4,4 @@ C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\bin\
 C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\obj\Debug\ScrTilla.csprojResolveAssemblyReference.cache
 C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\obj\Debug\ScrTilla.exe
 C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\obj\Debug\ScrTilla.pdb
+C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\bin\Debug\Newtonsoft.Json.dll

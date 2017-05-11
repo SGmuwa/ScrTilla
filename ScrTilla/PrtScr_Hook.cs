@@ -29,7 +29,7 @@ namespace ScrTilla
         /// </summary>
         public static bool Hook { get; private set; }
 
-        private static globalKeyboardHook gkH = new globalKeyboardHook();
+
 
         /// <summary>
         /// Начинает слежку над клавишей Print Screen
@@ -65,6 +65,8 @@ namespace ScrTilla
 
 
 
+        private static globalKeyboardHook gkH = new globalKeyboardHook();
+
         /// <summary>
         /// Событие при заврешнеие приложения. Безопасное отключение.
         /// </summary>
@@ -73,6 +75,8 @@ namespace ScrTilla
             Application.ApplicationExit -= AppExit;
             StopHook();
         }
+
+        #region Чужой код
 
         /// <summary>
         /// A class that manages a global low level keyboard hook
@@ -160,7 +164,11 @@ namespace ScrTilla
             /// </summary>
             public void unhook()
             {
-                UnhookWindowsHookEx(hhook);
+                if (hhook != IntPtr.Zero)
+                {
+                    UnhookWindowsHookEx(hhook);
+                    hhook = IntPtr.Zero;
+                }
             }
 
             /// <summary>
@@ -234,5 +242,7 @@ namespace ScrTilla
             static extern IntPtr LoadLibrary(string lpFileName);
             #endregion
         }
+
+        #endregion Чужой код
     }
 }

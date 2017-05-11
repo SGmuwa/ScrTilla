@@ -9,6 +9,10 @@ namespace ScrTilla
 {
     static class Combine
     {
+        /// <summary>
+        /// Получает изображение экранов
+        /// </summary>
+        /// <returns>Фото экранов</returns>
         public static Bitmap GetScreen()
         {
             Bitmap bitmap = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
@@ -20,12 +24,17 @@ namespace ScrTilla
 
         private static HttpClient cl = new HttpClient();
 
+        /// <summary>
+        /// Отправка изображения на сервер
+        /// </summary>
+        /// <param name="image">Изображение, которое следует отправить.</param>
+        /// <returns>Ответ от сервера</returns>
         public static async Task<string> SendScreen(Image image)
         {
             var requ = new MultipartFormDataContent();
             requ.Add(new ByteArrayContent(ImageToByte(image)), "up_image" /*, "image.png"*/); // image.png - отсутсвует в данном проекте
 
-            HttpResponseMessage response = await cl.PostAsync("", requ);
+            HttpResponseMessage response = await cl.PostAsync(Settings.DDNS, requ);
             return await response.Content.ReadAsStringAsync();
         }
 

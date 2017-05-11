@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 
@@ -17,9 +13,17 @@ namespace ScrTilla
             PrtScr_Hook.StopHook(PrtHooked);
         }
 
-        private static void PrtHooked(object sender, KeyEventArgs e)
+        private static async void PrtHooked(object sender, KeyEventArgs e)
         {
-            Combine.GetScreen();
+            Image im = Combine.GetScreen();
+            try
+            {
+                MessageBox.Show(await Combine.SendScreen(im));
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
