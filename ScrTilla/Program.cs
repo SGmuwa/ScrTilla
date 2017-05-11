@@ -12,17 +12,14 @@ namespace ScrTilla
     {
         static void Main(string[] args)
         {
-            PrtScr_Hook.PrintScreen += PrtScr_Hook_PrintScreen;
-            PrtScr_Hook.StartHook();
+            PrtScr_Hook.StartHook(PrtHooked);
             Application.Run();
-            PrtScr_Hook.StopHook();
+            PrtScr_Hook.StopHook(PrtHooked);
         }
 
-        private static void PrtScr_Hook_PrintScreen(object sender, System.Windows.Forms.KeyEventArgs e)
+        private static void PrtHooked(object sender, KeyEventArgs e)
         {
-            System.Windows.Forms.MessageBox.Show("Print Screen");
+            Combine.GetScreen();
         }
     }
-
-
 }

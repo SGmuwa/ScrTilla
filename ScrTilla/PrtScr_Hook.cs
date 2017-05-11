@@ -31,8 +31,6 @@ namespace ScrTilla
 
         private static globalKeyboardHook gkH = new globalKeyboardHook();
 
-
-
         /// <summary>
         /// Начинает слежку над клавишей Print Screen
         /// </summary>
@@ -78,8 +76,9 @@ namespace ScrTilla
 
         /// <summary>
         /// A class that manages a global low level keyboard hook
+        /// Не смотря на то, что данный класс можно модернизировать под мои задачи, я этого не сделал из-за сохранения инакпсюляции и принципа чёрного ящика.
         /// </summary>
-        public class globalKeyboardHook
+        protected class globalKeyboardHook
         {
             #region Constant, Structure and Delegate Definitions
             /// <summary>
@@ -125,8 +124,6 @@ namespace ScrTilla
             /// </summary>
             public event KeyEventHandler KeyUp;
             #endregion
-
-            static bool hooked;
 
             #region Constructors and Destructors
             /// <summary>
