@@ -18,9 +18,13 @@ namespace ScrTilla
             public string PNGs;
         }
         /// <summary>
+        /// Имя директории, где лежит файл
+        /// </summary>
+        private static readonly string DIRECT_NAME = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ScrTilla";
+        /// <summary>
         /// Имя файла
         /// </summary>
-        private const string FILE_NAME = "settings.json";
+        private static readonly string FILE_NAME = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ScrTilla\\settings.json";
         /// <summary>
         /// Контейнер, которых хранит в оперативной памяти настройки
         /// </summary>
@@ -31,26 +35,45 @@ namespace ScrTilla
         /// </summary>
         static Settings()
         {
+            StreamReader fp = null;
             try
             {
                 if (File.Exists(FILE_NAME))
                 {
-                    using (StreamReader fp = new StreamReader(FILE_NAME, System.Text.Encoding.UTF8))
+                    using (fp = new StreamReader(FILE_NAME, System.Text.Encoding.UTF8))
                     {
                         cont = JsonConvert.DeserializeObject<Conteiner>(fp.ReadToEnd());
                     }
                 }
                 else
                 {
-                    cont = new Conteiner() { URI = "http://s.mtudev.ru/upload" };
-                    File.Create(FILE_NAME);
-                    update();
+                    CreateNewSettingFile();
                 }
+            }
+            catch (JsonException e)
+            {
+                fp?.Close();
+                CreateNewSettingFile();
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show("ScrTilla", "Нет доступа к \"" + FILE_NAME + "\"\n\n" + e.Message, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
+                System.Windows.Forms.MessageBox.Show("Нет доступа к \"" + FILE_NAME + "\"\n\n" + e.Message, "ScrTilla", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
             }
+        }
+
+        private static void CreateNewSettingFile()
+        {
+
+            cont = new Conteiner() { URI = "http://s.mtudev.ru/upload", PNGs = "http://s.mtudev.ru/" };
+            if (!Directory.Exists(DIRECT_NAME))
+            {
+                Directory.CreateDirectory(DIRECT_NAME);
+            }
+            if(File.Exists(FILE_NAME))
+            {
+                File.Delete(FILE_NAME);
+            }
+            update();
         }
 
         /// <summary>
