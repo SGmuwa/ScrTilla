@@ -1,29 +1,45 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 
 
 namespace ScrTilla
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {
             PrtScr_Hook.StartHook(PrtHooked);
-            Application.Run();
+            using (ScrTilla.FormTaskbar f = new ScrTilla.FormTaskbar())
+            {
+                PrtScr_Hook.PrintScreen += f.ClipboardSet;
+                Application.Run(f);
+                PrtScr_Hook.PrintScreen -= f.ClipboardSet;
+            }
             PrtScr_Hook.StopHook(PrtHooked);
         }
 
         private static async void PrtHooked(object sender, KeyEventArgs e)
         {
-            Image im = Combine.GetScreen();
+            PrtScr_Hook.StopHook(PrtHooked);
+            json_st.Response Resp = new json_st.Response();
             try
             {
-                MessageBox.Show(await Combine.SendScreen(im));
+                Resp = await Combine.SendScreen(Combine.GetScreen());
             }
-            catch (System.Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message);
+                Resp.message = "critical error";
             }
+            if (Resp.filename.Length > 4 && Resp.code != 415 && Resp.code != 0)
+            {
+                Clipboard_s.ToClipboard(Settings.PNGs + Resp.filename);
+            }
+            GC.Collect();
+            PrtScr_Hook.StartHook(PrtHooked);
+            GC.Collect();
         }
     }
 }

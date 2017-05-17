@@ -5,3 +5,7 @@ C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\obj\
 C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\obj\Debug\ScrTilla.exe
 C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\obj\Debug\ScrTilla.pdb
 C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\obj\Debug\ScrTilla.FormPreferences.resources
+C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\obj\Debug\ScrTilla.Properties.Resources.resources
+C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\obj\Debug\ScrTilla.csproj.GenerateResource.Cache
+C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\obj\Debug\ScrTilla.FormTaskbar.resources

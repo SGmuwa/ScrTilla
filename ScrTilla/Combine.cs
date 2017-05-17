@@ -13,13 +13,13 @@ namespace ScrTilla
         /// Получает изображение экранов
         /// </summary>
         /// <returns>Фото экранов</returns>
-        public static Bitmap GetScreen()
+        public static byte[] GetScreen()
         {
             Bitmap bitmap = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
             Graphics graphics = Graphics.FromImage(bitmap as Image);
             graphics.CopyFromScreen(0, 0, 0, 0, bitmap.Size);
             graphics.Dispose(); graphics = null;
-            return bitmap;
+            return ImageToByte(bitmap);
         }
 
         private static HttpClient cl = new HttpClient();
@@ -29,13 +29,17 @@ namespace ScrTilla
         /// </summary>
         /// <param name="image">Изображение, которое следует отправить.</param>
         /// <returns>Ответ от сервера</returns>
-        public static async Task<string> SendScreen(Image image)
+        public static async Task<json_st.Response> SendScreen(byte[] image)
         {
             var requ = new MultipartFormDataContent();
-            requ.Add(new ByteArrayContent(ImageToByte(image)), "up_image" /*, "image.png"*/); // image.png - отсутсвует в данном проекте
+            var ImContent = new ByteArrayContent(image);
+            ImContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/png");
+            requ.Add(ImContent, "up_image", "image.png");
 
-            HttpResponseMessage response = await cl.PostAsync(Settings.DDNS, requ);
-            return await response.Content.ReadAsStringAsync();
+            HttpResponseMessage response = await cl.PostAsync(Settings.URI, requ);
+            requ.Dispose();
+            ImContent.Dispose();
+            return await Newtonsoft.Json.JsonConvert.DeserializeObjectAsync<json_st.Response>(await response.Content.ReadAsStringAsync());
         }
 
         // http://stackoverflow.com/questions/7350679/convert-a-bitmap-into-a-byte-array

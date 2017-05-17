@@ -40,7 +40,6 @@ namespace ScrTilla
             if (Hook == false)
             {
                 if (act != null) PrintScreen += act;
-                gkH.HookedKeys.Add(Keys.PrintScreen);
                 gkH.hook();
                 Hook = true;
                 Application.ApplicationExit += AppExit;
@@ -56,7 +55,6 @@ namespace ScrTilla
             if (Hook == true)
             {
                 if(act != null) PrintScreen -= act;
-                gkH.HookedKeys.Clear();
                 gkH.unhook();
                 Hook = false;
             }
@@ -107,10 +105,6 @@ namespace ScrTilla
             #endregion
 
             #region Instance Variables
-            /// <summary>
-            /// The collections of keys to watch for
-            /// </summary>
-            public List<Keys> HookedKeys = new List<Keys>();
             /// <summary>
             /// Handle to the hook, need this to unhook and call the next hook
             /// </summary>
@@ -177,13 +171,13 @@ namespace ScrTilla
             /// <param name="code">The hook code, if it isn't >= 0, the function shouldn't do anyting</param>
             /// <param name="wParam">The event type</param>
             /// <param name="lParam">The keyhook event information</param>
-            /// <returns></returns>
+            /// <returns></returns>'
             public int hookProc(int code, int wParam, ref keyboardHookStruct lParam)
             {
                 if (code >= 0)
                 {
                     Keys key = (Keys)lParam.vkCode;
-                    if (HookedKeys.Contains(key))
+                    if (key == Keys.PrintScreen)
                     {
                         KeyEventArgs kea = new KeyEventArgs(key);
                         if ((wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN) && (KeyDown != null))
