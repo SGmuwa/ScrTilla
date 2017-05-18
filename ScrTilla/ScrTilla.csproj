@@ -79,6 +79,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Newtonsoft.Json.dll" />
+    <None Include="Resources\Address_test_error.png" />
+    <None Include="Resources\Address_test_ok.png" />
+    <None Include="Resources\Address_test_load.gif" />
     <None Include="paomedia-small-n-flat-lightning.ico" />
   </ItemGroup>
   <ItemGroup>

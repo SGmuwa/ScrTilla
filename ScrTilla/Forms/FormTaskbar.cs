@@ -16,10 +16,10 @@ namespace ScrTilla
         {
             InitializeComponent();
             notifyIcon1.ContextMenu = new ContextMenu(new MenuItem[] {
-                new MenuItem("Настройки", n_OpenForm),
-                new MenuItem("Закрыть", n_Close)
+                new MenuItem("Setting", n_OpenForm),
+                new MenuItem("Exit", n_Close)
             });
-            notifyIcon1.ShowBalloonTip(0, "ScrTilla", "Запущен", ToolTipIcon.Info);
+            //notifyIcon1.ShowBalloonTip(0, "ScrTilla", "Запущен", ToolTipIcon.Info);
         }
 
         private void n_Close(object sender, EventArgs e)

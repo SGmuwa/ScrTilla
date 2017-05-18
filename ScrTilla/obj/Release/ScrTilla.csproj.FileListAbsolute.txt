@@ -1,0 +1,11 @@
+C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\bin\Release\ScrTilla.exe.config
+C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\bin\Release\ScrTilla.exe
+C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\bin\Release\ScrTilla.pdb
+C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\bin\Release\Newtonsoft.Json.dll
+C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\obj\Release\ScrTilla.csprojResolveAssemblyReference.cache
+C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\obj\Release\ScrTilla.FormPreferences.resources
+C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\obj\Release\ScrTilla.FormTaskbar.resources
+C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\obj\Release\ScrTilla.Properties.Resources.resources
+C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\obj\Release\ScrTilla.csproj.GenerateResource.Cache
+C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\obj\Release\ScrTilla.exe
+C:\Users\Muwa\Dropbox\Программирование\C#\ScrTilla\ScrTilla\obj\Release\ScrTilla.pdb

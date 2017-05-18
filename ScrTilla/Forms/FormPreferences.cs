@@ -41,7 +41,7 @@ namespace ScrTilla
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            textBox2.Text = textBox1.Text + "upload";
+            
         }
 
         public void ToMaximizame()
