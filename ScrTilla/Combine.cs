@@ -29,7 +29,7 @@ namespace ScrTilla
         /// </summary>
         /// <param name="image">Изображение, которое следует отправить.</param>
         /// <returns>Ответ от сервера</returns>
-        public static async Task<json_st.Response> SendScreen(byte[] image)
+        public static async Task<json_st.ResponsePost> SendScreen(byte[] image)
         {
             var requ = new MultipartFormDataContent();
             var ImContent = new ByteArrayContent(image);
@@ -39,7 +39,20 @@ namespace ScrTilla
             HttpResponseMessage response = await cl.PostAsync(Settings.URI, requ);
             requ.Dispose();
             ImContent.Dispose();
-            return await Newtonsoft.Json.JsonConvert.DeserializeObjectAsync<json_st.Response>(await response.Content.ReadAsStringAsync());
+            return await Newtonsoft.Json.JsonConvert.DeserializeObjectAsync<json_st.ResponsePost>(await response.Content.ReadAsStringAsync());
+        }
+
+        /// <summary>
+        /// Получение сведений от сервера.
+        /// </summary>
+        /// <param name="image">Изображение, которое следует от</param>
+        /// <returns>Ответ от сервера</returns>
+        public static async Task<json_st.InfoGet> GetInfo()
+        {
+            var requ = new MultipartFormDataContent();
+            HttpResponseMessage response = await cl.GetAsync(Settings.URI);
+            requ.Dispose();
+            return await Newtonsoft.Json.JsonConvert.DeserializeObjectAsync<json_st.InfoGet>(await response.Content.ReadAsStringAsync());
         }
 
         // http://stackoverflow.com/questions/7350679/convert-a-bitmap-into-a-byte-array

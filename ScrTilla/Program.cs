@@ -13,6 +13,7 @@ namespace ScrTilla
     {
         static void Main(string[] args)
         {
+            System.Windows.Forms.MessageBox.Show(Combine.GetInfo().Result.ToString());
             if (Process.GetProcesses().Count(p => p.ProcessName == Process.GetCurrentProcess().ProcessName) > 1) return;
             PrtScr_Hook.StartHook(PrtHooked);
             using (ScrTilla.FormTaskbar f = new ScrTilla.FormTaskbar())
@@ -27,7 +28,7 @@ namespace ScrTilla
         private static async void PrtHooked(object sender, KeyEventArgs e)
         {
             PrtScr_Hook.StopHook(PrtHooked);
-            json_st.Response Resp = new json_st.Response();
+            json_st.ResponsePost Resp = new json_st.ResponsePost();
             try
             {
                 Resp = await Combine.SendScreen(Combine.GetScreen());

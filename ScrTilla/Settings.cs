@@ -17,6 +17,19 @@ namespace ScrTilla
             /// </summary>
             public string PNGs;
         }
+
+        /// <summary>
+        /// Установить PNGs и URI в зависимости от address.
+        /// </summary>
+        /// <param name="address">DNS или IP сервера.</param>
+        public static void SetPNGsURIbyAddress(string address)
+        {
+            if (address == null) URI = PNGs = "";
+
+            URI = address;
+            PNGs = address;
+        }
+
         /// <summary>
         /// Имя директории, где лежит файл
         /// </summary>
