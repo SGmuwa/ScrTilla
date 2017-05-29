@@ -32,7 +32,7 @@ namespace ScrTilla
             {
                 byte[] Scr = Combine.GetScreen();
                 if (Settings.Save) SaveScr.Save(Scr);
-                Resp = await Combine.SendScreen(Combine.GetScreen());
+                Resp = await Combine.SendScreen(Scr);
                 Scr = null; // Попытка явно очистить память, отвязав адреса
             }
             catch

@@ -154,7 +154,7 @@ namespace ScrTilla
             {
                 Directory.CreateDirectory(DIRECT_NAME);
             }
-            if(File.Exists(FILE_NAME))
+            if (File.Exists(FILE_NAME))
             {
                 File.Delete(FILE_NAME);
             }
@@ -266,6 +266,7 @@ namespace ScrTilla
         /// </summary>
         private static void update()
         {
+
             try
             {
                 using (StreamWriter fp = new StreamWriter(FILE_NAME, false, System.Text.Encoding.UTF8))
@@ -280,4 +281,13 @@ namespace ScrTilla
             }
         }
     }
+    class MyClass
+    {
+        public static void Test()
+        {
+            MyClass A = new MyClass();
+            new MyClass();
+        }
+    }
 }
+
