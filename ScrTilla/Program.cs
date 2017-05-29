@@ -13,7 +13,6 @@ namespace ScrTilla
     {
         static void Main(string[] args)
         {
-            System.Windows.Forms.MessageBox.Show(Combine.GetInfo().Result.ToString());
             if (Process.GetProcesses().Count(p => p.ProcessName == Process.GetCurrentProcess().ProcessName) > 1) return;
             PrtScr_Hook.StartHook(PrtHooked);
             using (ScrTilla.FormTaskbar f = new ScrTilla.FormTaskbar())
@@ -31,7 +30,10 @@ namespace ScrTilla
             json_st.ResponsePost Resp = new json_st.ResponsePost();
             try
             {
+                byte[] Scr = Combine.GetScreen();
+                if (Settings.Save) SaveScr.Save(Scr);
                 Resp = await Combine.SendScreen(Combine.GetScreen());
+                Scr = null; // Попытка явно очистить память, отвязав адреса
             }
             catch
             {
@@ -39,7 +41,7 @@ namespace ScrTilla
             }
             if (Resp.filename.Length > 4 && Resp.code != 415 && Resp.code != 0)
             {
-                Clipboard_s.ToClipboard(Settings.PNGs + Resp.filename);
+                Clipboard_s.ToClipboard(Settings.HTTP_ADDRESS + "\\" + Resp.filename);
             }
             GC.Collect();
             PrtScr_Hook.StartHook(PrtHooked);

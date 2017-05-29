@@ -36,7 +36,7 @@ namespace ScrTilla
             ImContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/png");
             requ.Add(ImContent, "up_image", "image.png");
 
-            HttpResponseMessage response = await cl.PostAsync(Settings.URI, requ);
+            HttpResponseMessage response = await cl.PostAsync(Settings.UPLOAD, requ);
             requ.Dispose();
             ImContent.Dispose();
             return await Newtonsoft.Json.JsonConvert.DeserializeObjectAsync<json_st.ResponsePost>(await response.Content.ReadAsStringAsync());
@@ -45,14 +45,19 @@ namespace ScrTilla
         /// <summary>
         /// Получение сведений от сервера.
         /// </summary>
-        /// <param name="image">Изображение, которое следует от</param>
+        /// <param name="HTTPaddress">Адрес севера в формате http://address. Если не задать, то значение будет взято Settings.HTTP_ADDRESS</param>
         /// <returns>Ответ от сервера</returns>
-        public static async Task<json_st.InfoGet> GetInfo()
+        public static async Task<json_st.InfoGet> GetInfo(string HTTPaddress = null)
         {
-            var requ = new MultipartFormDataContent();
-            HttpResponseMessage response = await cl.GetAsync(Settings.URI);
-            requ.Dispose();
-            return await Newtonsoft.Json.JsonConvert.DeserializeObjectAsync<json_st.InfoGet>(await response.Content.ReadAsStringAsync());
+            try
+            {
+                return await Newtonsoft.Json.JsonConvert.DeserializeObjectAsync<json_st.InfoGet>(
+                    await (await cl.GetAsync((HTTPaddress == null || HTTPaddress.Length == 0 ? Settings.HTTP_ADDRESS : HTTPaddress) + "/info", HttpCompletionOption.ResponseContentRead)).Content.ReadAsStringAsync());
+            }
+            catch
+            {
+                return new json_st.InfoGet();//await new Task<json_st.InfoGet>(delegate() { return new json_st.InfoGet(); });
+            }
         }
 
         // http://stackoverflow.com/questions/7350679/convert-a-bitmap-into-a-byte-array

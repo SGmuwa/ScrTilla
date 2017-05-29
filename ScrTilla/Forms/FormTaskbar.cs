@@ -55,7 +55,7 @@ namespace ScrTilla
 
         public void ClipboardSet(object sender, KeyEventArgs e)
         {
-            notifyIcon1.ShowBalloonTip(0, "ScrTilla", "Ссылка скопирована", ToolTipIcon.Info);
+            if(Settings.Notifications) notifyIcon1.ShowBalloonTip(0, "ScrTilla", "Link copied", ToolTipIcon.Info);
         }
     }
 }
