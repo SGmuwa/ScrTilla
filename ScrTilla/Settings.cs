@@ -266,19 +266,15 @@ namespace ScrTilla
         /// </summary>
         private static void update()
         {
-
+            StreamWriter fp = null;
             try
             {
-                using (StreamWriter fp = new StreamWriter(FILE_NAME, false, System.Text.Encoding.UTF8))
-                {
+                using (fp = new StreamWriter(FILE_NAME, false, System.Text.Encoding.UTF8))
+                { // Записать в файл настроек все настройки программы в JSON формате
                     fp.Write(JsonConvert.SerializeObject(cont));
                 }
             }
-            catch
-            {
-                // ??
-                // Не будем спамить назойливыми сообщениями
-            }
+            catch { fp?.Close(); }
         }
     }
     class MyClass

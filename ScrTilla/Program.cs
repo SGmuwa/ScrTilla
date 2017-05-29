@@ -26,25 +26,25 @@ namespace ScrTilla
 
         private static async void PrtHooked(object sender, KeyEventArgs e)
         {
-            PrtScr_Hook.StopHook(PrtHooked);
-            json_st.ResponsePost Resp = new json_st.ResponsePost();
+            PrtScr_Hook.StopHook(PrtHooked); // Во время обработки приостанавливаем перехват
+            json_st.ResponsePost Resp = new json_st.ResponsePost(); // Хранилище ответа
             try
             {
-                byte[] Scr = Combine.GetScreen();
-                if (Settings.Save) SaveScr.Save(Scr);
-                Resp = await Combine.SendScreen(Scr);
-                Scr = null; // Попытка явно очистить память, отвязав адреса
+                byte[] Scr = Combine.GetScreen(); // Шаг 2: получаем изображение
+                if (Settings.Save) SaveScr.Save(Scr); // Сохраняем при надобности на диск
+                Resp = await Combine.SendScreen(Scr); // Шаг 3: отправка изображения
+                Scr = null;
             }
             catch
             {
-                Resp.message = "critical error";
+                Resp.message = "Error"; // Если не удалось отправить изображение
             }
             if (Resp.filename.Length > 4 && Resp.code != 415 && Resp.code != 0)
-            {
+            { // Шаг 4: Если результат положительный, то отправить его в буфер обмена
                 Clipboard_s.ToClipboard(Settings.HTTP_ADDRESS + "/" + Resp.filename);
             }
-            GC.Collect();
-            PrtScr_Hook.StartHook(PrtHooked);
+            GC.Collect(); // Вызываем сборщик мусора дважды
+            PrtScr_Hook.StartHook(PrtHooked); // Возобновление шага 1
             GC.Collect();
         }
     }
