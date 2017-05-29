@@ -41,7 +41,7 @@ namespace ScrTilla
             }
             if (Resp.filename.Length > 4 && Resp.code != 415 && Resp.code != 0)
             {
-                Clipboard_s.ToClipboard(Settings.HTTP_ADDRESS + "\\" + Resp.filename);
+                Clipboard_s.ToClipboard(Settings.HTTP_ADDRESS + "/" + Resp.filename);
             }
             GC.Collect();
             PrtScr_Hook.StartHook(PrtHooked);
