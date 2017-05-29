@@ -11,31 +11,41 @@ namespace ScrTilla
         [STAThread]
         public static void ToClipboard(string Text)
         {
+            // Выполнить операцию требуется в отдельном потоке
             new Thread((delegate ()
             {
+                // Эту операцию требуется делать, пока не будет результат
                 while (true)
                 {
                     lock (ProtectStaticThread) // Защитный замок
-                        if (GetOpenClipboardWindow() == IntPtr.Zero)
+                        if (GetOpenClipboardWindow() == IntPtr.Zero) // Если свободен буфер обмена
                         {
                             try
                             {
+                                // То отправляем текст в буфер обмена
                                 Clipboard.SetText(Text);
                             }
                             catch
                             {
+                                // В случае ошибки, пробуем закрыть буфер обмена с нашей стороны
                                 CloseClipboard();
+                                Thread.Sleep(1000);
+                                continue;
                             }
+                            // Очищаем память после работы с буфером обмена
                             GC.Collect();
                             GC.WaitForPendingFinalizers();
+                            GC.Collect();
                             return;
                         }
                         else
                         {
+                            // Если буфер обмена занят, ожидаем секундочку
                             Thread.Sleep(1000);
                         }
                 }
             }))
+            // Запускать поток требуется в STA режиме
             { ApartmentState = ApartmentState.STA }.Start();
         }
 

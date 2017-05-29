@@ -16,21 +16,35 @@ namespace ScrTilla
             if (!Directory.Exists(DIRECT_NAME)) Directory.CreateDirectory(DIRECT_NAME);
         }
 
+        /// <summary>
+        /// Сохранение изображения на диск.
+        /// </summary>
+        /// <param name="input">Данные, которые следует сохранить.</param>
         public static async void Save(byte[] input)
         {
-            if (!Directory.Exists(DIRECT_NAME)) Directory.CreateDirectory(DIRECT_NAME);
+            // Если папка, в которой должен храниться файл не существует,
+            if (!Directory.Exists(DIRECT_NAME))
+                // То создать папку
+                Directory.CreateDirectory(DIRECT_NAME);
             FileStream fp = null;
-            //try
+            try
             {
-                using (fp = new FileStream(DIRECT_NAME + DateTime.Now.ToString("\\\\yyyy-MM-dd hh-mm-ss.pn\\g"), FileMode.CreateNew))
+                // Открытие потока записи файла
+                using (
+                    fp = new FileStream
+                    (DIRECT_NAME + DateTime.Now.ToString("\\\\yyyy-MM-dd hh-mm-ss.pn\\g"), FileMode.CreateNew)
+                    )
                 {
+                    // Асихронная запись инофрмации в файл.
                     await fp.WriteAsync(input, 0, input.Length);
                 }
             }
-            //catch
+            catch (IOException)
             {
-            //    fp?.Close();
+                // Если с файлом что-то случилось, и ссылка на поток существует, то поток следует закрыть
+                fp?.Close();
             }
+            catch { }
         }
 
         internal static void Clear()
