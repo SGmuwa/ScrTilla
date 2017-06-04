@@ -277,13 +277,5 @@ namespace ScrTilla
             catch { fp?.Close(); }
         }
     }
-    class MyClass
-    {
-        public static void Test()
-        {
-            MyClass A = new MyClass();
-            new MyClass();
-        }
-    }
 }
 
